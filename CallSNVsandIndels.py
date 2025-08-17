@@ -1,16 +1,9 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2820
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+import pysam
+from Bio import pairwise2
+from collections import defaultdict, Counter
+import sys
 
-\f0\fs24 \cf0 import pysam\
-from Bio import pairwise2\
-from collections import defaultdict, Counter\
-import sys\
-\
-def primer_match(read_seq, primer, min_identity=0.9):\
+def primer_match(read_seq, primer, min_identity=0.9):
     """Check if read has >=90% identity to primer (local alignment)."""\
     aln = pairwise2.align.localms(read_seq, primer, 2, -1, -2, -0.5, one_alignment_only=True)[0]\
     matches = sum([1 for a, b in zip(aln.seqA, aln.seqB) if a == b])\
